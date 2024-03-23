@@ -10,7 +10,12 @@ Rest Api for mange data of favorite url
 `POST api/user `
 
 ### RESPONSE
-    
+{"message": "Create user Complete", 
+"data":{"username":...,
+        "password":...,
+        "email",....}
+}
+
 
     
 

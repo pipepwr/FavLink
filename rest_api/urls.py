@@ -1,27 +1,9 @@
-# FavLink
-Rest Api for mange data of favorite url 
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
-# RestAPI
+from .views import fav_link, user
 
-## User Registration
-
-### Request
-
-`POST api/user `
-
-### RESPONSE
-    
-
-    
-
-## favlink
-
-### Request
-
-`GET api/favlink `
-
-### RESPONSE
-    {}
+"""
     api/user[POST] -> create user
 
     api/favlink [GET] -> get all url already add by user
@@ -42,10 +24,21 @@ Rest Api for mange data of favorite url
     api/favlink/tag?name="?" [DELETE] -> delete tag   
 """
 
-
-# CRON JOB
-
-## REF
-
-`https://medium.com/@mainadanielwachira/a-comprehensive-guide-to-using-django-crontab-for-scheduled-tasks-bb62b99083e8`
-
+router = format_suffix_patterns(
+    [
+        path(
+            "api/user/",
+            user.UserView.as_view(),
+            name="user_registation_api",
+        ),
+        path("api/favlink/", fav_link.FavLinkView.as_view(), name="fav_link"),
+        path(
+            "api/favlink/<int:pk>/",
+            fav_link.FavLinkViewById.as_view(),
+            name="fav_link_by_id",
+        ),
+        # path("api/favlink/category", FavLinkView.as_view(), name="fav_link"),
+        # path("api/favlink/tag", FavLinkView.as_view(), name="fav_link"),
+    ]
+)
+urlpatterns = router

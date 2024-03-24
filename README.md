@@ -35,8 +35,6 @@ Rest Api for mange data of favorite url
 ### Request
 
 `GET api/favlink `
-`POST api/favlink`
-`PATCH api/favlink/<pk>`
 `DELETE api/favlink/<pk>`
 `GET api/favlink/<pk>/tag/<tag_id>`
 `GET api/favlink/<pk>/category`
@@ -51,6 +49,41 @@ Rest Api for mange data of favorite url
     False
    
     {"message": Error detail}
+
+"""""""""""""""""""""""""""
+### Create or update FAVLINK
+
+`POST api/favlink`
+`PATCH api/favlink/<pk>`
+
+### PAYLOAD
+    {
+        "url": "https://test.com/",
+        "category": "categorytest",
+        "tags": [
+            "test",
+            "fly",
+            "moo"
+        ]
+    }
+    **** category, tags is Optionals for PATCH
+
+### RESPONSE
+    {
+    "message": "Querry Sucessfull",
+    "data": {
+        "id": ..,
+        "url": "https://test.com/",
+        "title": "test - เข้าสู่ระบบหรือสมัครใช้งาน",
+        "category": "categorytest",
+        "tags": [
+            "test",
+            "fly",
+            "moo"
+        ]
+        }
+    }
+
 
 """""""""""""""""""""""""""
 

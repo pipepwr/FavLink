@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from .views import fav_link, user
+from .views import fav_link, user, category, tag
 
 """
     api/user[POST] -> create user
@@ -26,18 +26,62 @@ from .views import fav_link, user
 
 router = format_suffix_patterns(
     [
+        # create, manage user entity
         path(
             "api/user/",
             user.UserView.as_view(),
             name="user_registation_api",
         ),
+        # login
+        path(
+            "api/user/login",
+            user.LoginView.as_view(),
+            name="user_login",
+        ),
+        # log out
+        path(
+            "api/user/logout",
+            user.LogoutView.as_view(),
+            name="user_login",
+        ),
+        # create FAVLINK, querry all FAVLINK
         path("api/favlink/", fav_link.FavLinkView.as_view(), name="fav_link"),
+        # update FAVLINK by identify , delete
         path(
             "api/favlink/<int:pk>/",
             fav_link.FavLinkViewById.as_view(),
             name="fav_link_by_id",
         ),
-        # path("api/favlink/category", FavLinkView.as_view(), name="fav_link"),
+        path(
+            "api/favlink/<int:pk>/tag/<int:tag_pk>",
+            fav_link.URLTagView.as_view(),
+            name="fav_link_by_id_edit_tag",
+        ),
+        path(
+            "api/favlink/<int:pk>/category/",
+            fav_link.URLCategoryView.as_view(),
+            name="fav_link_by_id_edit_category",
+        ),
+        path(
+            "api/favlink/category/",
+            category.CategoryView.as_view(),
+            name="category_fav_link",
+        ),
+        path(
+            "api/favlink/category/<int:pk>/",
+            category.CategoryViewById.as_view(),
+            name="category_fav_link_by_id",
+        ),
+        path(
+            "api/favlink/tag/",
+            tag.TagView.as_view(),
+            name="tag_fav_link",
+        ),
+        path(
+            "api/favlink/tag/<int:pk>/",
+            tag.TagViewById.as_view(),
+            name="tag_fav_link_by_id",
+        ),
         # path("api/favlink/tag", FavLinkView.as_view(), name="fav_link"),
     ]
 )

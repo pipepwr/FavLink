@@ -50,6 +50,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_api",
+    "django_crontab",
+]
+
+CRONJOBS = [
+    ("0 0 * * *", "rest_api.job.url_validity_check"),
 ]
 
 
